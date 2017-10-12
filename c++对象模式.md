@@ -1,3 +1,4 @@
+
 nm命令可以查看可执行文件的标识符。
 模型:
 ####简单对象模型:
@@ -146,4 +147,40 @@ type_info信息：0x401014
 
 
 
+不管是单继承、多继承，还是虚继承，如果基于“简单对象模型”，每一个基类都可以被派生类中的一个slot指出，该slot内包含基类对象的地址。这个机制的主要缺点是，因为间接性而导致空间和存取时间上的额外负担；优点则是派生类对象的大小不会因其基类的改变而受影响。
+如果基于“表格驱动模型”，派生类中有一个slot指向基类表，表格中的每一个slot含一个相关的基类地址（这个很像虚函数表，内含每一个虚函数的地址）。这样每个派生类对象都有一个bptr，它会被初始化，指向其基类表。这种策略的主要缺点是由于间接性而导致的空间和存取时间上的额外负担；优点则是在每一个派生类对象中对继承都有一致的表现方式，每一个派生类对象都应该在某个固定位置上放置一个基类表指针，与基类的大小或数量无关。第二个优点是，不需要改变派生类对象本身，就可以放大，缩小、或更改基类表。
 
+###无重写的单继承
+
+![这里写图片描述](http://img.blog.csdn.net/20171012145100635?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvemh1eml5dTExNTc4MTc1NDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+
+
+###重写的单继承
+
+```
+class Derived_Overrite :
+    public Base
+{
+public:
+    Derived_Overrite(int);
+    virtual ~Derived_Overrite(void);
+    virtual void print(void) const;
+ 
+protected:
+    int iDerived;
+};
+```
+
+![这里写图片描述](http://img.blog.csdn.net/20171012145653092?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvemh1eml5dTExNTc4MTc1NDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+
+这时候子类的虚函数表中有的只有子类自己的print,而没有父类的print。没有被替换的父类虚函数在前，子类的虚函数在后。
+
+
+
+###可重写的多继承
+每个基类都有自己的虚表。
+子类的成员函数被放到了第一个基类的表中。
+内存布局中，其父类布局依次按声明顺序排列。
+每个基类的虚表中的print()函数都被overwrite成了子类的print ()。这样做就是为了解决不同的基类类型的指针指向同一个子类实例，而能够调用到实际的函数。
+
+###
