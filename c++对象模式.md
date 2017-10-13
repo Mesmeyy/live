@@ -13,6 +13,8 @@ nm命令可以查看可执行文件的标识符。
 ![这里写图片描述](http://img.blog.csdn.net/20171011215803855?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvemh1eml5dTExNTc4MTc1NDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
 member function table的观念成为支持virtual function的有效方案。
+###更改：
+vptr指向的第一个也就是偏移量为0的是type_info。第二个是析构函数,然后是其他函数。
 
 ###c++对象模型
 
