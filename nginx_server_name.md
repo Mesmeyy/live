@@ -3,3 +3,5 @@
 加入.conf中又配置了一个server_name叫chichi，那么加入dns同样承认这个域名对应ip:123.123.123.123，那么地址栏输入chichi，会有wwwroot下chichi下的index.html来返回给浏览,会自动返回index.html。
 
 因此多个域名对应ip复用，同时也对实际上真正的文件访问增加了权限。
+
+我们俩决定，针对个体小机器和反响代理服务器,因此设定一个server_name,一个listen。
