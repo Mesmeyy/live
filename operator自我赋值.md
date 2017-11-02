@@ -89,4 +89,23 @@ int main()
 
 2 而且:赋值拷贝构造函数不要调用重载=号的函数，重载=运算符的函数也不能调用赋值拷贝函数，否则会一直无穷无尽～你懂得。
 
-3 一旦自己定义了opetator运算符，那么在类中一定要很注意使用这个运算符。尤其是小心规则2，很容易不经意间就入坑了
+ 一旦自己定义了opetator运算符，那么在类中一定要很注意使用这个运算符。尤其是小心规则2，很容易不经意间就入坑了
+
+
+
+prioritycustomer::prioritycustomer(const prioritycustomer& rhs):Customer(rhs),priority(rhs.priority)//调用baseclass的构造函数
+{
+    logcall("");
+}
+
+prioritycustomer& prioritycustomer::operator=(const prioritycustomer& rhs)
+{
+    logcall("");
+    Customer::operator=(rhs);//对baseclass进行赋值
+    priority = rhs.priority;
+    return *this;
+}
+
+
+
+
